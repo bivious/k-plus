@@ -5,5 +5,4 @@
 -
 -
 
-[//]: # (If you have write privileges to repository, do label your pull request, else you could insert a mention prefixed with @GitHub-Username below.)
-
+[//]: # (If you have write privileges to repository, do label your pull request, alternatively you can insert a mention prefixed with @GitHub-Username below to alert any specific person that may have asked you to do this.)

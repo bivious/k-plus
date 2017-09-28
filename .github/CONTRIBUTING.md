@@ -1,3 +1,3 @@
 ###### General guidelines for creating pull requests:
 
-* [**Click here**](https://github.com/kvirc/KVIrc/wiki/Contributing-code-to-KVIrc's-repositories) to read the information from our wiki.
+* If you would like [**click here**](https://github.com/bivious/k-plus/wiki/Contributing-code-to-KVIrc's-repositories) to read related information you may find helpful from our wiki.

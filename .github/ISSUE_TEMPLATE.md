@@ -1,21 +1,20 @@
-### Expected behavior
+### Expected Behavior
 
 
-### Actual behavior
+### Actual Behavior
 
 
 [//]:# (Besides the text description, include any screenshots that help us visualize the issue you're facing)
 
-### Steps to reproduce the issue
+### Steps to Reproduce the Issue
 1.
 2.
 3.
 
-### System information
-[//]:# (Type ```/about.kvirc``` or click "Help → About KVIrc" and copy & paste the details from the "Executable Information" tab below between ``` marks)  
+### System Information
+[//]:# (Type ```/about.kvirc``` or click "Help → About KVIrc" and copy & paste the details from the "Executable Information" tab below between the ``` marks)  
 [//]:# (Also Enter any OS information the "Executable Information" tab doesn't contain, e.g. KDE, Gentoo, Linux Mint, etc.)
-
 ```
 
 ```
-[//]:# (If you experienced crashes or segfaults please also include a stacktrace below, For how-to read: https://github.com/kvirc/KVIrc/wiki/Grabbing-a-useful-backtrace.)
+[//]:# (If are experiencing crashes or segfaults please also include a stacktrace below, For how-to read: https://github.com/bivious/k-plus/wiki/Grabbing-a-Useful-Stacktrace.)

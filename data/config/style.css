@@ -1,5 +1,78 @@
+/* Customize tooltips. */
+QToolTip {
+	background-color: rgb(252,252,210);
+	border-color: #FCFCBA;
+	border-width: 1px;
+	border-style: solid;
+    padding: 2px 0px;
+    opacity: 255;
+}
+/* Style Vertical scrollbars */
+QScrollBar:vertical {
+	border: 1px solid #9E9E9E;
+	width: 15px;
+	margin: 0px;
+}
+QScrollBar::handle:vertical {
+	background: #9E9E9E;
+	min-height: 50px;
+	width: 15px;
+	margin: 1px;
+}
+QScrollBar::handle:hover:vertical {
+	background: #5E8ACC;
+}
+QScrollBar::add-line:vertical {
+	border: 0px;
+	background-color: transparent;
+    width: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+    QScrollBar::sub-line:vertical {
+    border: 0px;
+	background-color: transparent;
+    height: 0 px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical,
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+	background: #E5E5E5;
+}
+/* Style Horizontal scrollbars */
+QScrollBar:horizontal {
+	border: 1px solid #9E9E9E;
+    height: 15px;
+	margin: 0px;
+}
+QScrollBar::handle:horizontal {
+	background: #9E9E9E;
+	min-height: 50px;
+	height: 15px;
+	margin: 1px;
+}
+QScrollBar::handle:hover:horizontal {
+	background: #5E8ACC;
+}
+QScrollBar::add-line:horizontal {
+	border: 0px;
+	background-color: transparent;
+	height: 0px;
+	subcontrol-position: right;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+	border: 0px;
+	background-color: transparent;
+	height: 0px;
+	subcontrol-position: left;
+	subcontrol-origin: margin;
+}
 /* Make text in message boxes selectable. */
 QMessageBox {
-    /* LinksAccessibleByMouse | TextSelectableByMouse */
-    messagebox-text-interaction-flags: 5;
+/* LinksAccessibleByMouse | TextSelectableByMouse */
+	messagebox-text-interaction-flags: 5;
 }

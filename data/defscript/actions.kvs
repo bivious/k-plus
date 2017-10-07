@@ -6,7 +6,7 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 {
 	#################################################################
 	#                                                               #
-	#   File : actions.kvs (optionctrlr) v4.1.1.7125                #
+	#   File : actions.kvs (optionctrlr) v4.1.1.7210                #
 	#   Creation date : Fri Jul 22 16:57:41 2016 UTC by un1versal   #
 	#                                                               #
 	#################################################################
@@ -70,12 +70,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectPing)
 		{
 			option boolIgnoreCTCPPing 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP PING")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP PING")
 		}
 		else
 		{
 			option boolIgnoreCTCPPing 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP PING")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP PING")
 		}
 		%ProtectPing = $option(boolIgnoreCTCPPing)
 	}
@@ -92,12 +92,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectFinger)
 		{
 			option boolIgnoreCTCPFinger 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP FINGER")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP FINGER")
 		}
 		else
 		{
 			option boolIgnoreCTCPFinger 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP FINGER")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP FINGER")
 		}
 		%ProtectFinger = $option(boolIgnoreCTCPFinger)
 	}
@@ -114,12 +114,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectVersion)
 		{
 			option boolIgnoreCTCPVersion 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP VERSION")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP VERSION")
 		}
 		else
 		{
 			option boolIgnoreCTCPVersion 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP VERSION")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP VERSION")
 		}
 		%ProtectVersion = $option(boolIgnoreCTCPVersion)
 	}
@@ -136,12 +136,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectUserinfo)
 		{
 			option boolIgnoreCTCPUserinfo 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP USERINFO")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP USERINFO")
 		}
 		else
 		{
 			option boolIgnoreCTCPUserinfo 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP USERINFO")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP USERINFO")
 		}
 		%ProtectUserinfo = $option(boolIgnoreCTCPUserinfo)
 	}
@@ -158,12 +158,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectClientInfo)
 		{
 			option boolIgnoreCTCPClientinfo 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP CLIENTINFO")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP CLIENTINFO")
 		}
 		else
 		{
 			option boolIgnoreCTCPClientinfo 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP CLIENTINFO")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP CLIENTINFO")
 		}
 		%ProtectClientInfo = $option(boolIgnoreCTCPClientinfo)
 	}
@@ -180,12 +180,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectSource)
 		{
 			option boolIgnoreCTCPSource 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP SOURCE")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP SOURCE")
 		}
 		else
 		{
 			option boolIgnoreCTCPSource 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP SOURCE")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP SOURCE")
 		}
 		%ProtectSource = $option(boolIgnoreCTCPSource)
 	}
@@ -202,12 +202,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectTime)
 		{
 			option boolIgnoreCTCPTime 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP TIME")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP TIME")
 		}
 		else
 		{
 			option boolIgnoreCTCPTime 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP TIME")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP TIME")
 		}
 		%ProtectTime = $option(boolIgnoreCTCPTime)
 	}
@@ -224,12 +224,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectPage)
 		{
 			option boolIgnoreCTCPPage 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP PAGE")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP PAGE")
 		}
 		else
 		{
 			option boolIgnoreCTCPPage 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP PAGE")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP PAGE")
 		}
 		%ProtectPage = $option(boolIgnoreCTCPPage)
 	}
@@ -246,12 +246,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectAvatar)
 		{
 			option boolIgnoreCTCPAvatar 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP AVATAR")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP AVATAR")
 		}
 		else
 		{
 			option boolIgnoreCTCPAvatar 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP AVATAR")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP AVATAR")
 		}
 		%ProtectAvatar = $option(boolIgnoreCTCPAvatar)
 	}
@@ -268,12 +268,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if(%ProtectDCC)
 		{
 			option boolIgnoreCTCPDCC 0
-			echo -i = $msgtype(GenericStatus) $tr("Disabled ignore for CTCP DCC")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled ignore for CTCP DCC")
 		}
 		else
 		{
 			option boolIgnoreCTCPDCC 1
-			echo -i = $msgtype(GenericStatus) $tr("Enabled ignore for CTCP DCC")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled ignore for CTCP DCC")
 		}
 		%ProtectDCC = $option(boolIgnoreCTCPDCC)
 	}
@@ -301,12 +301,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if($isEventEnabled(OnJoin, suppressJoinMsgs))
 		{
 			eventctl -d OnJoin suppressJoinMsgs
-			echo -i = $msgtype(GenericStatus) $tr("Disabled join message suppression")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled join message suppression")
 		}
 		else
 		{
 			eventctl -e OnJoin suppressJoinMsgs
-			echo -i = $msgtype(GenericStatus) $tr("Enabled join message suppression")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled join message suppression")
 		}
 		%IsJoinEnabled = $isEventEnabled(OnJoin, suppressJoinMsgs)
 	}
@@ -323,12 +323,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if($isEventEnabled(OnPart, suppressPartMsgs))
 		{
 			eventctl -d OnPart suppressPartMsgs
-			echo -i = $msgtype(GenericStatus) $tr("Disabled part message suppression")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled part message suppression")
 		}
 		else
 		{
 			eventctl -e OnPart suppressPartMsgs
-			echo -i = $msgtype(GenericStatus) $tr("Enabled part message suppression")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled part message suppression")
 		}
 		%IsPartEnabled = $isEventEnabled(OnPart, suppressPartMsgs)
 	}
@@ -345,12 +345,12 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		if($isEventEnabled(OnQuit, suppressQuitMsgs))
 		{
 			eventctl -d OnQuit suppressQuitMsgs
-			echo -i = $msgtype(GenericStatus) $tr("Disabled quit message suppression")
+			echo -w=$active -i=$msgtype(GenericWarning) $tr("Disabled quit message suppression")
 		}
 		else
 		{
 			eventctl -e OnQuit suppressQuitMsgs
-			echo -i = $msgtype(GenericStatus) $tr("Enabled quit message suppression")
+			echo -w=$active -i=$msgtype(GenericStatus) $tr("Enabled quit message suppression")
 		}
 		%IsQuitEnabled = $isEventEnabled(OnQuit, suppressQuitMsgs)
 	}
@@ -374,7 +374,7 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 		## And kill dialog on close
 		delete -q $$
 
-		# Unset all the variables: after delete so %Pdisplay is definitely unset 
+		# Unset all the variables after delete so %Pdisplay is definitely unset
 		unset %PDisplay, %ProtectPing, %ProtectFinger, %ProtectVersion, %ProtectUserinfo \
 		%ProtectClientinfo, %ProtectSource, %ProtectTime, %ProtectPage, %ProtectAvatar   \
 		%ProtectDCC, %IsJoinEnabled, %IsPartEnabled, %IsQuitEnabled
@@ -386,4 +386,3 @@ action.create -w=xcqd -t=tools ("optionctrlr", $tr("Global Option Controllers"),
 
 	%widget->$setFixedSize(%widget->$width(), %widget->$height())
 }
-

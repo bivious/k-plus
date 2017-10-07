@@ -10,7 +10,7 @@ QToolTip {
 /* Style Vertical scrollbars */
 QScrollBar:vertical {
 	border: 1px solid #9E9E9E;
-	width: 15px;
+	width: 17px;
 	margin: 0px;
 }
 QScrollBar::handle:vertical {
@@ -45,7 +45,7 @@ QScrollBar::sub-page:horizontal {
 /* Style Horizontal scrollbars */
 QScrollBar:horizontal {
 	border: 1px solid #9E9E9E;
-    height: 15px;
+    height: 17px;
 	margin: 0px;
 }
 QScrollBar::handle:horizontal {
@@ -71,6 +71,42 @@ QScrollBar::sub-line:horizontal {
 	subcontrol-position: left;
 	subcontrol-origin: margin;
 }
+/* Fix branch treeview controls not visible on dark themes. */
+QTreeView::item:selected:disabled,
+QTableView::item:selected:disabled {
+	background: rgb(80,80,80);
+}
+QTreeView::branch {
+  background-color: transparent;
+}
+QTreeView::branch:has-siblings:!adjoins-item {
+	border-image: url(images/icon_vline.png) 0;
+}
+QTreeView::branch:has-siblings:adjoins-item {
+	border-image: url(images/icon_branch_more.png) 0;
+}
+QTreeView::branch:!has-children:!has-siblings:adjoins-item {
+	border-image: url(images/icon_branch_end.png) 0;
+}
+QTreeView::branch:has-children:!has-siblings:closed,
+QTreeView::branch:closed:has-children:has-siblings {
+	border-image: none;
+	image: url(images/icon_branch_closed.png);
+}
+QTreeView::branch:open:has-children:!has-siblings,
+QTreeView::branch:open:has-children:has-siblings {
+	border-image:none;
+	image: url(images/icon_branch_open.png);
+}
+QTreeView::branch:has-children:!has-siblings:closed:hover,
+QTreeView::branch:closed:has-children:has-siblings:hover {
+	image: url(images/icon_branch_closed-on.png);
+}
+QTreeView::branch:open:has-children:!has-siblings:hover,
+QTreeView::branch:open:has-children:has-siblings:hover {
+	image: url(images/icon_branch_open-on.png);
+}
+
 /* Make text in message boxes selectable. */
 QMessageBox {
 /* LinksAccessibleByMouse | TextSelectableByMouse */

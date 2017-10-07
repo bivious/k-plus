@@ -2,6 +2,7 @@
 
 file(GLOB files "*.kvc")
 list(APPEND files "style.css")
+subdirs(images)
 
 if(UNIX)
 	if(APPLE)

@@ -40,7 +40,11 @@ Var LocalDir
 !define MUI_LANGDLL_REGISTRY_KEY "Software\KVIrc"
 !define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
 !define MUI_LANGDLL_ALWAYSSHOW
-!define MUI_FINISHPAGE_RUN "$INSTDIR\@KVIRC_BINARYNAME@.exe"
+;!define MUI_FINISHPAGE_RUN "$INSTDIR\@KVIRC_BINARYNAME@.exe"
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_TEXT "Start KVIrc now"
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+
 
 ; Pages
 !insertmacro MUI_PAGE_LICENSE "release\License\COPYING"
@@ -64,8 +68,10 @@ LangString UnGeneralFiles ${LANG_ENGLISH} "Program files"
 LangString ProgramDescription ${LANG_ENGLISH} "Visual IRC client"
 LangString TraySection ${LANG_ENGLISH} "Quick launch icon"
 LangString TraySectionDescr ${LANG_ENGLISH} "Create quick launch icon"
-LangString DesktopSection ${LANG_ENGLISH} "Desktop shortcut"
-LangString DesktopSectionDescr ${LANG_ENGLISH} "Create desktop shortcut"
+; We are using the desktop shrotuct to start program with --stylesheet loaded
+; so disallow user to disable Desktop shortcut creation for time being.
+;LangString DesktopSection ${LANG_ENGLISH} "Desktop shortcut"
+;LangString DesktopSectionDescr ${LANG_ENGLISH} "Create desktop shortcut"
 LangString KVIrc ${LANG_ENGLISH} "KVIrc (required)"
 LangString KVIrcDescr ${LANG_ENGLISH} "KVIrc program files"
 LangString StartMenuSection ${LANG_ENGLISH} "Start menu"
@@ -124,17 +130,17 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 Section $(StartMenuSection) StartMenuSection_IDX
   SetShellVarContext all
-  CreateShortCut "$SMPROGRAMS\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
+  CreateShortCut "$SMPROGRAMS\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "-stylesheet=style.css" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
 SectionEnd
 
 Section $(DesktopSection) DesktopSection_IDX
   SetShellVarContext all
-  CreateShortCut "$DESKTOP\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
+  CreateShortCut "$DESKTOP\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "-stylesheet=style.css" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
 SectionEnd
 
 Section $(TraySection) TraySection_IDX
   SetShellVarContext all
-  CreateShortCut "$QUICKLAUNCH\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
+  CreateShortCut "$QUICKLAUNCH\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "-stylesheet=style.css" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
 SectionEnd
 
 Section $(WinampSection) WinampSection_IDX
@@ -239,15 +245,20 @@ Section !un.$(UnGeneralFiles)
     RMDir /r "$INSTDIR\defscript"
     RMDir /r "$INSTDIR\doc"
     RMDir /r "$INSTDIR\help"
+    RMDir /r "$INSTDIR\lib"
     RMDir /r "$INSTDIR\license"
     RMDir /r "$INSTDIR\locale"
     RMDir /r "$INSTDIR\modules"
     RMDir /r "$INSTDIR\msgcolors"
     RMDir /r "$INSTDIR\pics"
+    RMDir /r "$INSTDIR\share"
     RMDir /r "$INSTDIR\themes"
     Delete "$INSTDIR\*.dll"
     Delete "$INSTDIR\*.exe"
     Delete "$INSTDIR\*.ini"
+    Delete "$INSTDIR\*.css"
+    Delete "$INSTDIR\*.conf"
+    Delete "$INSTDIR\*.kvc"
     RMDir "$INSTDIR"
 
     ReadRegStr $R0 HKCU Software\Winamp ""
@@ -379,4 +390,12 @@ Function un.CloseKVIrcInstances
     Quit
   done:
     Pop $0 ; restoring stack
+FunctionEnd
+
+; add message and function to start kvirc.
+Function LaunchLink
+	MessageBox MB_OK "Always start KVIrc via the shortcut provided in Desktop, $\r$\n \
+				  	that automatically loads the accompanying style.css. $\r$\n \
+				  	Without this stylesheet, some elements will be missing or unstyled."
+	ExecShell "" "$DESKTOP\KVIrc.lnk"
 FunctionEnd

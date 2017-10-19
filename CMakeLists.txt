@@ -662,24 +662,24 @@ if(WANT_OPENSSL)
 	find_package(OpenSSL)
 	if(OPENSSL_FOUND)
 		if(WIN32)
-			# On windows/mingw we need libeay32 too...
-			find_library(LIB_EAY NAMES libeay32MD eay libeay libeay32 libcrypto
+			# On windows/mingw we need libssl too...
+			find_library(LIB_SSL NAMES libeay32MD libssl32MD 1_1 eay libeay libeay32 libcrypto libcrypto-1_1 libssl-1_1
 									${_OPENSSL_ROOT_HINTS_AND_PATHS}
 									PATH_SUFFIXES
 									"lib"
 									"lib/MinGW")
-			if(LIB_EAY)
+			if(LIB_SSL)
 				include_directories(${OPENSSL_INCLUDE_DIR})
 				# The following are here in order to pick the applink.c file
 				# The documentation says that it should be included in OPENSSL_INCLUDE_DIR/openssl
 				# but in the package I have now it's actually in OPENSSL_INCLUDE_DIR/../ms .
 				include_directories(${OPENSSL_INCLUDE_DIR}/openssl)
 				include_directories(${OPENSSL_INCLUDE_DIR}/../ms)
-				list(APPEND LIBS ${OPENSSL_LIBRARIES} ${LIB_EAY})
+				list(APPEND LIBS ${OPENSSL_LIBRARIES} ${LIB_SSL})
 				set(COMPILE_SSL_SUPPORT 1)
 				set(CMAKE_STATUS_SSL_SUPPORT "Yes")
 			else()
-				set(CMAKE_STATUS_SSL_SUPPORT "Not available, libeay missing")
+				set(CMAKE_STATUS_SSL_SUPPORT "Not available, libssl missing")
 			endif()
 		else()
 			include_directories(${OPENSSL_INCLUDE_DIR})

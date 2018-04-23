@@ -5,8 +5,14 @@ set(license
 	LICENSE-OPENSSL
 	../COPYING
 )
+set(howto
+	INSTALL.txt
+	INSTALL-macOS.txt
+	INSTALL-Win32.txt
+	INSTALL-Win64.txt
+)
 if(WIN32)
-	list(APPEND license LICENSE-AMIP)
+	list(APPEND license ABOUT-LICENSE LICENSE-OPENSSL LICENSE-AMIP)
 endif()
 
 # User documentation

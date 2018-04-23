@@ -1,0 +1,26 @@
+Compiling KVIrc on macOS
+
+Install Homebrew if you haven’t already. This will also install the Xcode Command Line Tools (llvm/clang, make, etc).
+There’s no need to install Xcode from the App Store.
+
+Install CMake and Qt 5 from Homebrew.
+
+    $ brew install cmake
+
+    $ brew install qt5
+
+Download the KVIrc sourcetree with Git and create a build folder as usual. Git was already installed alongside Homebrew.
+Run CMake, telling it where Qt is installed:
+
+    $ ccmake -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/ ..
+
+This folder might change in the future, Homebrew tells you where Qt 5 is going to be installed, so just read its output.
+
+Compile and install:
+
+    $ make install
+
+Creates an .app bundle in the build folder with all necessary dependencies.
+To launch it, double click it. To “install” it, drag it to the Applications folder, but this is not necessary.
+
+You can redistribute this bundle to other users and they’ll be able to install it right away. Remember, though, that an .app bundle is actually a folder, so you’ll need to compress it first. Right-clicking it and selecting “Compress” will be enough.

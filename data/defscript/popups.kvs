@@ -8,7 +8,7 @@ defpopup(highlight)
 {
 	prologue
 	{
-		if($0!="")
+		if($0 != "")
 		{
 			%:regName = $reguser.match($mask($0))
 			%:beingHl = $reguser.property(%:regName,highlight)
@@ -101,13 +101,13 @@ defpopup(dccchat)
 
 	separator
 
-	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) ($server)
+	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) ($server && $0 != $my.nick)
 
-	extpopup(&DCC,dcc,$icon("dcc")) ($server)
+	extpopup(&DCC,dcc,$icon("dcc")) ($server && $0 != $my.nick)
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
-	item($tr("Notify Avatar","defscript"),$icon("avatar")) ($server)
+	item($tr("Notify Avatar","defscript"),$icon("avatar")) ($server && $0 != $my.nick)
 	{
 		avatar.notify $0
 	}
@@ -163,7 +163,7 @@ defpopup(querytextview)
 
 	separator
 
-	popup($tr("&Information","defscript"),$icon("info")) (!%:multiple && $server)
+	popup($tr("&Information","defscript"),$icon("info")) (!%:multiple && $server && $0 != $my.nick)
 	{
 		item($str.printf($tr("/WHOIS ?s","defscript"),$0),$icon("whoisuser"))
 		{
@@ -194,24 +194,24 @@ defpopup(querytextview)
 		}
 	}
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
-	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) (!%:multiple && $server)
+	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) (!%:multiple && $server && $0 != $my.nick)
 
-	extpopup(&DCC,dcc,$icon("dcc")) (!%:multiple && $server)
+	extpopup(&DCC,dcc,$icon("dcc")) (!%:multiple && $server && $0 != $my.nick)
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
-	extpopup($tr("&Ignore","defscript"),ignore,$icon("ignore")) (!%:multiple && $server)
+	extpopup($tr("&Ignore","defscript"),ignore,$icon("ignore")) (!%:multiple && $server && $0 != $my.nick)
 
-	extpopup($tr("&Registration","defscript"),registration,$icon("regusers")) (!%:multiple && $server)
+	extpopup($tr("&Registration","defscript"),registration,$icon("regusers")) (!%:multiple && $server && $0 != $my.nick)
 
-	item($tr("Notify Avatar","defscript"),$icon("avatar")) (!%:multiple && $server)
+	item($tr("Notify Avatar","defscript"),$icon("avatar")) (!%:multiple && $server && $0 != $my.nick)
 	{
 		avatar.notify $0
 	}
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
 	item($tr("Clear Buffer","defscript"),$icon("remove"))
 	{
@@ -339,7 +339,7 @@ defpopup(consoletextview)
 		channelsjoin.open
 	}
 
-	popup($tr("&Information","defscript"),$icon("info")) ($server)
+	popup($tr("&Information","defscript"),$icon("info")) ($server && $0 != $my.nick)
 	{
 		item(/MOTD,$icon("motd"))
 		{
@@ -438,7 +438,7 @@ defpopup(urlpopup)
 
 defpopup(serverpopup)
 {
-	popup($tr("&Information","defscript"),$icon("info")) ($server)
+	popup($tr("&Information","defscript"),$icon("info")) ($server && $0 != $my.nick)
 	{
 		item(/MOTD,$icon("motd"))
 		{
@@ -797,7 +797,7 @@ defpopup(defaulttextview)
 
 	separator($server)
 
-	popup($tr("&Information","defscript"),$icon("info")) ($server)
+	popup($tr("&Information","defscript"),$icon("info")) ($server && $0 != $my.nick)
 	{
 		item($str.printf($tr("/WHOIS ?s","defscript"),$0),$icon("whoisuser"))
 		{
@@ -828,28 +828,28 @@ defpopup(defaulttextview)
 		}
 	}
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
-	item($tr("&Query","defscript") %:visible,$icon("query")) ($server)
+	item($tr("&Query","defscript") %:visible,$icon("query")) ($server && $0 != $my.nick)
 	{
 		query $0
 	}
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
-	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) ($server)
+	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) ($server && $0 != $my.nick)
 
-	extpopup(&DCC,dcc,$icon("dcc")) ($server)
+	extpopup(&DCC,dcc,$icon("dcc")) ($server && $0 != $my.nick)
 
-	separator($server)
+	separator($server && $0 != $my.nick)
 
-	extpopup($tr("&Registration","defscript"),registration,$icon("regusers")) (!%:multiple && $server)
+	extpopup($tr("&Registration","defscript"),registration,$icon("regusers")) (!%:multiple && $server && $0 != $my.nick)
 
-	extpopup($tr("Ig&nore","defscript"),ignore,$icon("ignore")) (!%:multiple && $server)
+	extpopup($tr("Ig&nore","defscript"),ignore,$icon("ignore")) (!%:multiple && $server && $0 != $my.nick)
 
 	extpopup($tr("&Highlight","defscript"),highlight,$icon("highlighttext")) (!%:multiple && $server)
 
-	item($tr("Notify avatar","defscript"),$icon("avatar")) ($server)
+	item($tr("Notify avatar","defscript"),$icon("avatar")) ($server && $0 != $my.nick)
 	{
 		avatar.notify $0
 	}
@@ -1153,13 +1153,13 @@ defpopup(usercontrol)
 
 	separator
 
-	item($tr("&Kick","defscript") %:visible,$icon("kick")) (%:bCanKB)
+	item($tr("&Kick","defscript") %:visible,$icon("kick")) (%:bCanKB && $0 != $my.nick)
 	{
 		foreach(%i,$str.split(",",$0))
 			kick %i
 	}
 
-	item($tr("K&ick","defscript") %:visible $tr("With...","defscript"),$icon("kick")) (%:bCanKB)
+	item($tr("K&ick","defscript") %:visible $tr("With...","defscript"),$icon("kick")) (%:bCanKB && $0 != $my.nick)
 	{
 		dialog.textinput -d="$me" -i=110 ($tr("Kick Reason","defscript"),$tr("Enter a kick reason","defscript"),$tr("&Kick","defscript"),$tr("Cancel","defscript"),,$0)
 		{
@@ -1171,22 +1171,22 @@ defpopup(usercontrol)
 		}
 	}
 
-	item($tr("&Ban","defscript") %:visible "("%:itemBanMask")",$icon("kick")) (("%:itemBanMask" != "*!*@*") && %:bCanKB)
+	item($tr("&Ban","defscript") %:visible "("%:itemBanMask")",$icon("kick")) (("%:itemBanMask" != "*!*@*") && %:bCanKB && $0 != $my.nick)
 	{
 		ban $mask($0,$option(uintDefaultBanType))
 	}
 
-	item(%:itemBanName %:visible "("%:itemBanNick!*@*")",$icon("kick")) (%:bCanKB)
+	item(%:itemBanName %:visible "("%:itemBanNick!*@*")",$icon("kick")) (%:bCanKB && $0 != $my.nick)
 	{
 		ban $0
 	}
 
-	item($tr("Kick/Ban","defscript") %:visible,$icon("kick")) (%:bCanKB)
+	item($tr("Kick/Ban","defscript") %:visible,$icon("kick")) (%:bCanKB && $0 != $my.nick)
 	{
 		kb $0
 	}
 
-	item($tr("Kick/Ban","defscript") %:visible $tr("with...","defscript"),$icon("kick")) (%:bCanKB)
+	item($tr("Kick/Ban","defscript") %:visible $tr("with...","defscript"),$icon("kick")) (%:bCanKB && $0 != $my.nick)
 	{
 		dialog.textinput -d="$me" -i=110 ($tr("Kick/Ban Reason","defscript"),$tr("Enter a kick/ban reason","defscript"),$tr("&Kick/Ban","defscript"),$tr("Cancel","defscript"),,$0)
 		{
@@ -1199,7 +1199,7 @@ defpopup(usercontrol)
 
 	separator
 
-	item($tr("Configure Ban Mask...","defscript"),$icon("options"))
+	item($tr("Configure Ban Mask...","defscript"),$icon("options")) ($0 != $my.nick)
 	{
 		options.edit OptionsWidget_channelAdvanced
 	}
@@ -1376,7 +1376,7 @@ defpopup(channelhighlight)
 {
 	prologue
 	{
-		if($window!="" && !$chan.isDead())
+		if($window != "" && !$chan.isDead())
 		{
 			%:beingHlTmp = $tmphighlight.isChannelHighLighted($window)
 		}
@@ -1777,7 +1777,7 @@ defpopup(channel)
 
 	separator
 
-	popup($tr("&Information","defscript"),$icon("info")) (!%:multiple && $server)
+	popup($tr("&Information","defscript"),$icon("info")) (!%:multiple && $server && $0 != $my.nick)
 	{
 		item($str.printf($tr("/WHOIS ?s","defscript"),%:visible),$icon("whoisuser"))
 		{
@@ -1812,28 +1812,27 @@ defpopup(channel)
 
 	separator
 
-	item($tr("&Query","defscript") $0 %:visible,$icon("query")) ($server)
+	item($tr("&Query","defscript") $0 %:visible,$icon("query")) ($server && $0 != $my.nick)
 	{
 		query $0
 	}
 
+	separator($0 != $my.nick)
+
+	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) ($server && $0 != $my.nick)
+
+	extpopup(&DCC,dcc,$icon("dcc")) (!%:multiple && $server && $0 != $my.nick)
+
 	separator
 
-	extpopup(C&TCP,ctcp,$icon("ctcpreplyunknown")) ($server)
+	extpopup($tr("&Registration","defscript"),registration,$icon("regusers")) (!%:multiple && $server && $0 != $my.nick)
 
-	extpopup(&DCC,dcc,$icon("dcc")) (!%:multiple && $server)
-
-	separator
-
-	extpopup($tr("&Registration","defscript"),registration,$icon("regusers")) (!%:multiple && $server)
-
-	extpopup($tr("Ig&nore","defscript"),ignore,$icon("ignore")) (!%:multiple && $server)
+	extpopup($tr("Ig&nore","defscript"),ignore,$icon("ignore")) (!%:multiple && $server && $0 != $my.nick)
 
 	extpopup($tr("&Highlight","defscript"),highlight,$icon("highlighttext")) (!%:multiple && $server)
 
-	item($tr("Notify Avatar","defscript"),$icon("avatar")) ($server)
+	item($tr("Notify Avatar","defscript"),$icon("avatar")) ($server && $0 != $my.nick)
 	{
 		avatar.notify $0
 	}
 }
-

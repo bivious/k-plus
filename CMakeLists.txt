@@ -48,7 +48,7 @@ set(NICENAME "KVIrc")
 set(VERSION_MAJOR "5")
 set(VERSION_BRANCH "5.0")
 set(VERSION_RELEASE "5.0.1")
-set(VERSION_CODENAME "Aria")
+set(VERSION_CODENAME "Moon Tree")
 # REMINDER: "Quasar" is a new candidate name.
 
 string(REGEX MATCH "[0-9]+$" VERSION_MINOR ${VERSION_BRANCH})

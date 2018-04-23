@@ -65,8 +65,8 @@ LangString UnGeneralFiles ${LANG_ENGLISH} "Program files"
 LangString ProgramDescription ${LANG_ENGLISH} "Visual IRC client"
 LangString TraySection ${LANG_ENGLISH} "Quick launch icon"
 LangString TraySectionDescr ${LANG_ENGLISH} "Create quick launch icon"
-LangString DesktopSection ${LANG_ENGLISH} "Desktop shortcut"
-LangString DesktopSectionDescr ${LANG_ENGLISH} "Create desktop shortcut"
+;LangString DesktopSection ${LANG_ENGLISH} "Desktop shortcut"
+;LangString DesktopSectionDescr ${LANG_ENGLISH} "Create desktop shortcut"
 LangString KVIrc ${LANG_ENGLISH} "KVIrc (required)"
 LangString KVIrcDescr ${LANG_ENGLISH} "KVIrc program files"
 LangString StartMenuSection ${LANG_ENGLISH} "Start menu"
@@ -123,17 +123,17 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 Section $(StartMenuSection) StartMenuSection_IDX
   SetShellVarContext all
-  CreateShortCut "$SMPROGRAMS\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
+  CreateShortCut "$SMPROGRAMS\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "-stylesheet=style.css" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
 SectionEnd
 
 Section $(DesktopSection) DesktopSection_IDX
   SetShellVarContext all
-  CreateShortCut "$DESKTOP\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
+  CreateShortCut "$DESKTOP\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "-stylesheet=style.css" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
 SectionEnd
 
 Section $(TraySection) TraySection_IDX
   SetShellVarContext all
-  CreateShortCut "$QUICKLAUNCH\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
+  CreateShortCut "$QUICKLAUNCH\KVIrc.lnk" "$INSTDIR\@KVIRC_BINARYNAME@.exe" "-stylesheet=style.css" "$INSTDIR\@KVIRC_BINARYNAME@.exe" 0 "" "" $(ProgramDescription)
 SectionEnd
 
 ;--------------------------------
@@ -221,15 +221,20 @@ Section !un.$(UnGeneralFiles)
     RMDir /r "$INSTDIR\defscript"
     RMDir /r "$INSTDIR\doc"
     RMDir /r "$INSTDIR\help"
+	RMDir /r "$INSTDIR\lib"
     RMDir /r "$INSTDIR\license"
     RMDir /r "$INSTDIR\locale"
     RMDir /r "$INSTDIR\modules"
     RMDir /r "$INSTDIR\msgcolors"
     RMDir /r "$INSTDIR\pics"
+    RMDir /r "$INSTDIR\share"
     RMDir /r "$INSTDIR\themes"
     Delete "$INSTDIR\*.dll"
     Delete "$INSTDIR\*.exe"
     Delete "$INSTDIR\*.ini"
+    Delete "$INSTDIR\*.css"
+    Delete "$INSTDIR\*.conf"
+	Delete "$INSTDIR\*.kvc"
     RMDir "$INSTDIR"
 SectionEnd
 
@@ -268,7 +273,11 @@ FunctionEnd
 ; Functions
 
 Function LaunchKVIrc
-  ${StdUtils.ExecShellAsUser} $0 "$INSTDIR\@KVIRC_BINARYNAME@.exe" "open" ""
+  ;${StdUtils.ExecShellAsUser} $0 "$INSTDIR\@KVIRC_BINARYNAME@.exe" "open" ""
+  MessageBox MB_OK "Always start KVIrc via the shortcut provided in Desktop, $\r$\n \
+				  that automatically loads the accompanying style.css. $\r$\n \
+				  Without this stylesheet, some elements will be missing or unstyled."
+  ExecShell "" "$DESKTOP\KVIrc.lnk"
 FunctionEnd
 
 Function CloseKVIrcInstances

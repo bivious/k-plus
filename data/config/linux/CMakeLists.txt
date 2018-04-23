@@ -1,7 +1,6 @@
-# CMakeLists for data/config
+# CMakeLists for  data/config/linux
 
-file(GLOB files "*.kvc")
-subdirs(linux treeview-images windows)
+list(APPEND files "style.css")
 
 if(UNIX)
 	if(APPLE)
@@ -10,6 +9,4 @@ if(UNIX)
 		# Assume linux
 		install(FILES ${files} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/kvirc/${VERSION_BRANCH}/config/)
 	endif()
-elseif(WIN32)
-	install(FILES ${files} DESTINATION ${CMAKE_INSTALL_PREFIX}/config/)
 endif()

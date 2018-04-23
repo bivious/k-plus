@@ -149,7 +149,9 @@ FileTransferWidget::FileTransferWidget(QWidget * pParent)
 	setColumnWidth(0, FILETRANSFERW_CELLSIZE);
 	horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
 	horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
-	setColumnWidth(1, 500);
+    horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);
+	setColumnWidth(1, 700);
+	setColumnWidth(2, 500);
 	horizontalHeader()->setStretchLastSection(true);
 	//focus policy
 	setFocusPolicy(Qt::NoFocus);

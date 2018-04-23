@@ -1,12 +1,12 @@
 # KVIrc configuration file
 [KVIrc]
 Version=4.1.1
-Date=2016-07-20
-ActionVersion=4.1.1.7125
+Date=2017-11-10
+ActionVersion=4.1.1.7210
 AddonVersion=4.1.1
-AliasVersion=4.1.1.6923
+AliasVersion=4.1.1.7221
 ClassVersion=4.1.1
 EventVersion=4.1.1.7125
-PopupVersion=4.1.1.7126
+PopupVersion=4.1.1.7232
 RawVersion=4.1.1
 ToolbarVersion=4.1.1.6732

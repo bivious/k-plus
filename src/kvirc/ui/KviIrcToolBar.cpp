@@ -72,8 +72,8 @@ KviToolBarGraphicalApplet::KviToolBarGraphicalApplet(QWidget * par, const char *
 
 	setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 
-	setMinimumWidth(32);
-	setMaximumWidth(580);
+	setMinimumWidth(300);
+	setMaximumWidth(650);
 
 	if(KVI_OPTION_UINT(KviOption_uintIrcContextAppletWidth) < 32)
 		KVI_OPTION_UINT(KviOption_uintIrcContextAppletWidth) = 32;
@@ -117,9 +117,7 @@ void KviToolBarGraphicalApplet::mouseMoveEvent(QMouseEvent * e)
 void KviToolBarGraphicalApplet::mousePressEvent(QMouseEvent * e)
 {
 	if(e->button() & Qt::LeftButton)
-	{
 		m_bResizeMode = (e->pos().x() > (width() - 4));
-	}
 }
 
 void KviToolBarGraphicalApplet::mouseReleaseEvent(QMouseEvent *)
@@ -154,13 +152,9 @@ void KviToolBarGraphicalApplet::paintEvent(QPaintEvent *)
 #endif
 		QPixmap * pix = KVI_OPTION_PIXMAP(KviOption_pixmapIrcToolBarAppletBackground).pixmap();
 		if(pix)
-		{
 			KviPixmapUtils::drawPixmapWithPainter(&pa, pix, KVI_OPTION_UINT(KviOption_pixmapIrcToolBarAppletBackground), rect(), rect().width(), rect().height());
-		}
 		else
-		{
 			pa.fillRect(rect(), KVI_OPTION_COLOR(KviOption_colorIrcToolBarAppletBackground));
-		}
 #ifdef COMPILE_PSEUDO_TRANSPARENCY
 	}
 #endif
@@ -337,9 +331,7 @@ void KviIrcContextDisplay::drawContents(QPainter * p)
 	{
 		QString serv, nick;
 		if(!c->connection())
-		{
 			serv = __tr2qs("Not connected");
-		}
 		else
 		{
 			if(c->isConnected())
@@ -370,15 +362,11 @@ void KviIrcContextDisplay::drawContents(QPainter * p)
 					if(lll > 0)
 						KviQString::appendFormatted(nick, __tr2qs("Lag: %d ms"), lll);
 					else
-                    {
                         nick += __tr2qs("Lag: ???");
-                    }
 				}
 			}
 			else
-            {
 				serv = __tr2qs("Connection in progress...");
-            }
 		}
 
 		p->setPen(KVI_OPTION_COLOR(KviOption_colorIrcToolBarAppletFont));

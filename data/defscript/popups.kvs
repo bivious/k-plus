@@ -1663,6 +1663,101 @@ defpopup(ignore)
 	{
 		reguser.setIgnoreEnabled %:regName 0;
 	}
+
+	item($tr("Temporary Ignore","defscript"),$icon("ignore")) (!%:inIgnoreList && !%:regName || !%:inIgnoreList)
+	{
+		%G_tinick = $0
+
+		if($objects.exists(%G_widget))
+		{
+			%G_widget->$raise()
+			halt;
+		}
+		else
+			unset %G_widget
+
+		%G_widget = $new(dialog)
+		%G_widget->$setWindowTitle($tr("Temporary Ignore for - %G_tinick","defscript"))
+
+		%layout=$new(layout, %G_widget)
+		%layout->$addRowSpacing(2, 15)
+		%layout->$setSpacing(6)
+
+		%G_widget->$setGeometry(0,0,600,120)
+		%G_widget->$setFixedSize(%G_widget->$width(), %G_widget->$height())
+		%G_widget->$centerToScreen()
+		%G_widget->$setWFlags(dialog)
+		%G_widget->$setfocus()
+		%G_widget->$raise()
+
+		%btnHzbox=$new(hbox, %G_widget)
+
+		%ignDelslbl = $new(label, %G_widget)
+		%ignDelslbl->$setText($tr("Enter ignore duration:","defscript"))
+
+		%G_ignDelsb = $new(spinbox, %G_widget)
+		%G_ignDelsb->$setLineStep(5)
+		%G_ignDelsb->$setMinValue(5)
+		%G_ignDelsb->$setMaxValue(60)
+		%G_ignDelsb->$setSuffix($tr(" minute(s)","defscript"))
+		%G_ignDelsb->$setTooltip($tr("Select a ignore duration.\n5 minute minimum increments available to a maximum of 60 minutes.","defscript"))
+
+		%ignrSlabel = $new(label, %G_widget)
+		%ignrSlabel->$setText($tr("Enter a ignore message:","defscript"))
+
+		%G_msgLedit = $new(lineedit, %G_widget)
+		%G_msgLedit->$setText($tr("Unwanted/Unwarranted behaviour","defscript"))
+		%G_msgLedit->$setTooltip($tr("Personalize the reason sent. If no reason is entered," \
+									"\nthe default reason displayed is used instead.","defscript"))
+
+		%clsDbutton = $new(button, %btnHzbox)
+		%clsDbutton->$setText($tr("&Exit","defscript"))
+		%clsDbutton->$setTooltip("Closes dialog without performing any actions.")
+
+		%ignAbutton = $new(button, %btnHzbox)
+		%ignAbutton->$setText($tr("&Activate Ignore","defscript"))
+		%ignAbutton->$setTooltip("Sets the options above and activates the temporary ignore.")
+
+		%layout->$addMultiCellWidget(%ignDelslbl, 0,0,0,4)
+		%layout->$addMultiCellWidget(%G_ignDelsb, 0,0,8,10)
+
+		%layout->$addMultiCellWidget(%ignrSlabel, 1,1,0,4)
+		%layout->$addMultiCellWidget(%G_msgLedit, 1,1,4,10)
+
+		%layout->$addMultiCellWidget(%clsDbutton, 3,0,4,6)
+		%layout->$addMultiCellWidget(%ignAbutton, 3,0,7,10)
+
+		privateimpl(%G_msgLedit, mousePressEvent)
+		{
+			if(%G_msgLedit->$text() == $tr("Unwanted/Unwarranted behaviour","defscript") || %G_msgLedit->$text() == "")
+				%G_msgLedit->$setText("")
+		}
+
+		privateimpl(%G_widget, close)
+		{
+			unset %G_tinick, %G_msgLedit, %G_ignDelsb, %G_widget
+			delete $$
+		}
+		objects.connect %clsDbutton clicked %G_widget close
+
+		privateimpl(%ignAbutton, clickEvent)
+		{
+			%delay = %G_ignDelsb->$value()
+			%reason = %G_msgLedit->$text()
+
+			$tignore(%G_tinick, %delay, %reason)
+
+			delete %G_widget
+			unset %G_tinick, %G_msgLedit, %G_ignDelsb, %G_widget
+		}
+
+		privateimpl(%G_widget, closeEvent)
+		{
+			unset %G_tinick, %G_msgLedit, %G_ignDelsb, %G_widget
+		}
+
+		%G_widget->$show()
+	}
 }
 
 defpopup(registration)

@@ -427,6 +427,12 @@ alias(ignore)
 		halt
 	}
 
+	if($0 == $my.nick)
+	{
+		echo -w=$active -i=$msgtype(GenericError) $tr("Nice try, can't let you do that.","defscript")
+		halt;
+	}
+
 	# Now add the user (but do not replace old entries)
 
 	reguser.add -f -q $0 $mask($0,15);
@@ -496,9 +502,131 @@ alias(dcc)
 	}
 }
 
-#
+# tignore v1.0.4
+alias(tignore)
+{
+	%nick = $0
+	%delay = $1
+	%reason = $2-
+
+	# Usage
+	if((%nick == "") || (%delay == ""))
+	{
+		echo $tr("Usage:","defscript")
+		echo "	/tignore <nick> <minutes> <reason>"
+		echo "	"$tr("The supported time range is between 5 to 60 minutes.","defscript")
+		echo "	"$tr("Default reason$b"Unwanted/Unwarranted behaviour."$b (When left blank)","defscript")
+		halt;
+	}
+
+	if(!$isWellKnown(%nick))
+	{
+		echo -w=$active -i=$msgtype(GenericError) $tr("Nick %nick is not a known user.","defscript")
+		halt;
+	}
+
+	# Dont allow self
+	if(%nick == $my.nick)
+	{
+		echo -w=$active -i=$msgtype(GenericError) $tr("Nice try, can't let you do that.","defscript")
+		halt;
+	}
+
+	# Prepend a 0 to any single numbers instead of announcing tignore only accepts double digits.
+	if(%delay < 10)
+		%delay = $str.prepend(%delay, "0");
+
+	# Fix timeout range same as popup, also prevents adding a timeout with 0 range.
+	if((%delay < "5") || (%delay > "60"))
+	{
+		echo -w=$active -i=$msgtype(GenericError) $tr("The supported range is between $b"5"$b to $b"60"$b minutes.","defscript")
+		halt;
+	}
+
+	if(!$str.grep("\\d\\d", %delay, "r"))
+	{
+		echo -w=$active -i=$msgtype(GenericWarning) $tr("Time must be a numeric value only.","defscript")
+		halt;
+	}
+
+	if(%reason == "")
+	{
+		%reason = $tr("Unwanted/Unwarranted behaviour.","defscript")
+	}
+
+	%G_ignoredUser <+ %nick
+	%now = $unixtime
+	%timeout = $(%now + (60 * %delay))
+	%G_ignoreTime <+ %timeout
+
+	# Fix: dont allow setting another timeout on and actively ignored user.
+	%usersreg = $reguser.list()
+	foreach(%user, %usersreg)
+	{
+		for(%i = 0; %i < %G_ignoredUser[]#; %i++)
+		{
+			if(%user == %G_ignoredUser[%i])
+			{
+				echo -w=$active -i=$msgtype(GenericWarning) $tr($b"User:"$b %nick "is already on a timeout.","defscript")
+				halt;
+			}
+		}
+	}
+
+	# Send User Notices
+	rebind -q $active
+
+	notice %nick $tr("[ Automated message ] You've earned a timeout for the next" %delay"+ minutes.","defscript")
+	notice %nick $tr("All your messages will be ignored during this timeout.","defscript")
+	notice %nick $tr("[ Reason:$b%reason$b ]","defscript")
+
+	echo -w=$active -i=$msgtype(GenericSuccess) $tr($b"User:$b" %nick "has been set for a" %delay"+ minute timeout.","defscript")
+
+	reguser.add -f -q %nick $mask(%nick, 15);
+	reguser.setIgnoreFlags -p -c -n -t -i -d -h -q %nick
+	reguser.setIgnoreEnabled -q %nick 1
+
+	if(!$isTimer(ignoredtime))
+	{
+		# Set a timer to check every 1 minutes
+		timer -p (ignoredtime, 60000)
+		{
+			%usersreg = $reguser.list()
+			foreach(%user, %usersreg)
+			{
+				for(%i = 0; %i < %G_ignoredUser[]#; %i++)
+				{
+					if(%user == %G_ignoredUser[%i])
+					{
+						if($unixtime >= %G_ignoreTime[%i])
+						{
+							%nick = %G_ignoredUser[%i]
+							rebind -q $active
+
+							notice %nick $tr("Your timeout has now ended.","defscript")
+
+							%G_ignoredUser[%i] = $null
+							%G_ignoreTime[%i] = $null
+
+							echo -w=$active -i=$msgtype(GenericStatus) $tr($b"User:"$b %nick "timeout has ended.","defscript")
+
+							reguser.remove -q %nick
+
+							if($typeof(%G_ignoredUser) == "nothing")
+							{
+								killtimer ignoredtime
+								unset %G_ignoredUser
+								unset %G_ignoreTime
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 # return a string with the name of the current usermode
-#
 alias(usermodename)
 {
 	if(!$0)

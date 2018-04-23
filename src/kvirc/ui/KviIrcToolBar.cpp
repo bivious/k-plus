@@ -289,14 +289,11 @@ void KviIrcContextDisplay::tipRequest(KviDynamicToolTip * tip, const QPoint &)
 		{
 			txt += snr;
 
-			int lll;
-			if((lll = ic->lagMeter()->lag()) > 0)
+			int lll = ic->lagMeter()->lag();
+			if(lll > 0)
 			{
-				int llls = lll / 1000;
-				int llld = (lll % 1000) / 100;
-				int lllc = (lll % 100) / 10;
 				txt += nbspc;
-				KviQString::appendFormatted(txt, __tr2qs("Lag: <b>%d.%d%d secs</b>"), llls, llld, lllc);
+				KviQString::appendFormatted(txt, __tr2qs("Lag: <b>%d ms"), lll);
 				txt += enr;
 				int vss = ic->lagMeter()->secondsSinceLastCompleted();
 				int vmm = vss / 60;
@@ -306,7 +303,7 @@ void KviIrcContextDisplay::tipRequest(KviDynamicToolTip * tip, const QPoint &)
 				txt += enr;
 			}
 			else
-				txt += nbspc + __tr2qs("Lag: <b>?.?\?</b>"); //escaped a ? due to compiler trigraphs warning
+				txt += nbspc + __tr2qs("Lag: <b>???</b>");
 		}
 
 		txt += R"(<tr><td bgcolor="#E0E0E0"><font color="#000000">)";
@@ -369,24 +366,19 @@ void KviIrcContextDisplay::drawContents(QPainter * p)
 				if(ic->lagMeter() && (KVI_OPTION_BOOL(KviOption_boolShowLagOnContextDisplay)))
 				{
 					nick += space + sprtr + space;
-					int lll;
-					if((lll = ic->lagMeter()->lag()) > 0)
-					{
-						int llls = lll / 1000;
-						int llld = (lll % 1000) / 100;
-						int lllc = (lll % 100) / 10;
-						KviQString::appendFormatted(nick, __tr2qs("Lag: %d.%d%d secs"), llls, llld, lllc);
-					}
+					int lll = ic->lagMeter()->lag();
+					if(lll > 0)
+						KviQString::appendFormatted(nick, __tr2qs("Lag: %d ms"), lll);
 					else
-					{
-						nick += __tr2qs("Lag: ?.??");
-					}
+                    {
+                        nick += __tr2qs("Lag: ???");
+                    }
 				}
 			}
 			else
-			{
+            {
 				serv = __tr2qs("Connection in progress...");
-			}
+            }
 		}
 
 		p->setPen(KVI_OPTION_COLOR(KviOption_colorIrcToolBarAppletFont));

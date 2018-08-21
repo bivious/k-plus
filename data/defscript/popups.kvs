@@ -759,7 +759,7 @@ defpopup(windowpopup)
 
 	separator
 
-	item($tr("Global &Option Controllers","defscript"),$icon("options"))
+	item($tr("Global &Option Controllers","defscript"),$icon("options")) (%:bIsChannel)
 	{
 		action.trigger optionctrlr;
 	}

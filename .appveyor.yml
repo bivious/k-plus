@@ -62,12 +62,12 @@ install:
     - ps: Invoke-WebRequest https://cygwin.com/setup-x86.exe -OutFile c:\cygwin-setup.exe
     - c:\cygwin-setup.exe --quiet-mode --no-shortcuts --no-startmenu --no-desktop --upgrade-also --only-site --site http://cygwin.mirror.constant.com/ --root c:\cygwin --packages bash
     - ps: |
-        if ((Test-Path "c:\OpenSSL-$env:ssl_arch") -And ((Get-Item "c:\OpenSSL-$env:ssl_arch\bin\ssleay32.dll").VersionInfo.ProductVersion -eq '1.0.2t')) {
+        if ((Test-Path "c:\OpenSSL-$env:ssl_arch") -And ((Get-Item "c:\OpenSSL-$env:ssl_arch\bin\ssleay32.dll").VersionInfo.ProductVersion -eq '1.0.2u')) {
             echo "using preinstalled openssl"
         } else {
             echo "preinstalled openssl not found or not present in requested version, this is pretty sad."
-            echo "downloading openssl 1.0.2t package, don't worry, be happy!"
-            Invoke-WebRequest "https://slproweb.com/download/$($env:ssl_arch)OpenSSL-1_0_2t.exe" -OutFile c:\openssl-setup.exe
+            echo "downloading openssl 1.0.2u package, don't worry, be happy!"
+            Invoke-WebRequest "https://slproweb.com/download/$($env:ssl_arch)OpenSSL-1_0_2u.exe" -OutFile c:\openssl-setup.exe
             echo "installing openssl"
             Start-Process -Wait -FilePath c:\openssl-setup.exe -ArgumentList "/silent /verysilent /sp- /suppressmsgboxes"
         }
